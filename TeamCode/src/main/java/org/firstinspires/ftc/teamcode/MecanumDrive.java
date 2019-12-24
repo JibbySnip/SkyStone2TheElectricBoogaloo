@@ -7,12 +7,12 @@ import com.qualcomm.robotcore.hardware.GyroSensor;
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
 
-class mecanumDrive {
+class MecanumDrive {
     private DcMotorEx fL,bL,fR,bR;
     private GyroSensor heading;
     private final static double DRIVE_MULT = 0;
 
-    mecanumDrive(DcMotorEx fr, DcMotorEx fl, DcMotorEx br, DcMotorEx bl, GyroSensor heading) {
+    MecanumDrive(DcMotorEx fr, DcMotorEx fl, DcMotorEx br, DcMotorEx bl, GyroSensor heading) {
         fL = fl;
         bL = bl;
         fR = fr;

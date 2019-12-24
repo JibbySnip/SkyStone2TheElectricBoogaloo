@@ -2,7 +2,6 @@ package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.GyroSensor;
 
@@ -13,7 +12,7 @@ public class toastAuto extends LinearOpMode {
     @Override
     public void runOpMode() throws InterruptedException{
 
-        mecanumDrive drive = new mecanumDrive(
+        MecanumDrive drive = new MecanumDrive(
                 hardwareMap.get(DcMotorEx.class, "frontRight"),
                 hardwareMap.get(DcMotorEx.class, "frontLeft"),
                 hardwareMap.get(DcMotorEx.class, "backRight"),
