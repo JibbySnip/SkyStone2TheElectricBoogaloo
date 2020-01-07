@@ -1,5 +1,6 @@
 dependencies {
     implementation project(':FtcRobotController')
+    implementation (name: 'jama-1.0.3', ext:'jar')
     implementation (name: 'RobotCore-release', ext: 'aar')
     implementation (name: 'Hardware-release', ext: 'aar')
     implementation (name: 'FtcCommon-release', ext: 'aar')

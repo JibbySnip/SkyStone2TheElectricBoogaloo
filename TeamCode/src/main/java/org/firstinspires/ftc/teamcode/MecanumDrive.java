@@ -5,14 +5,20 @@ import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.GyroSensor;
 
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
-import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
+import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
+import org.firstinspires.ftc.robotcore.external.navigation.Position;
 
 class MecanumDrive {
-    private DcMotorEx fL,bL,fR,bR;
+    DcMotorEx fL,bL,fR,bR;
     private GyroSensor heading;
     private final static double DRIVE_MULT = 0;
+    double track_width,wheel_base;
+    Position position;
+    private MatchTimer time;
+    double wheel_diameter = 0.1;
+    Odometry odo;
 
-    MecanumDrive(DcMotorEx fr, DcMotorEx fl, DcMotorEx br, DcMotorEx bl, GyroSensor heading) {
+    MecanumDrive(DcMotorEx fr, DcMotorEx fl, DcMotorEx br, DcMotorEx bl, GyroSensor heading, MatchTimer time) {
         fL = fl;
         bL = bl;
         fR = fr;
@@ -31,6 +37,7 @@ class MecanumDrive {
 
         this.heading = heading;
 
+
     }
     void driveByXY(double x, double y, double turn) {
         double mag = Math.hypot(x,y);
@@ -46,18 +53,19 @@ class MecanumDrive {
         bL.setPower(speed[3]);
     }
 
+    void init_position(double x,double y){
+       position = new Position(DistanceUnit.METER,x,y,0,time.getTime());
+    };
+
     double[] getSpeed() {
         return new double[]{fR.getPower(), fL.getPower(), bR.getPower(), bL.getPower()};
     }
-    double[] getVelocity() {
+    double[] getVelocities() {
         return new double[]{
             fR.getVelocity(AngleUnit.RADIANS), fL.getVelocity(AngleUnit.RADIANS),bR.getVelocity(AngleUnit.RADIANS),bL.getVelocity(AngleUnit.RADIANS)};
     }
-    DcMotorEx[] getMotors() {
-        return new DcMotorEx[]{fR,fL,bR,bL};
+    double radiansToMeters(double rps) {
+        return rps*wheel_diameter;
     }
-
-
-
 
 }
