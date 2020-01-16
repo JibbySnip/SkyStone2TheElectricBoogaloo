@@ -1,5 +1,6 @@
 dependencies {
     implementation (name:'Inspection-release', ext: 'aar')
+    implementation 'com.acmerobotics.dashboard:dashboard:0.3.6'
     implementation (name:'Blocks-release', ext: 'aar')
     implementation (name:'RobotCore-release', ext: 'aar')
     implementation (name:'RobotServer-release', ext: 'aar')
