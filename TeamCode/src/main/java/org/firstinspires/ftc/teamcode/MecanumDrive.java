@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode;
 
+import com.qualcomm.hardware.bosch.BNO055IMU;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.GyroSensor;
@@ -7,18 +8,19 @@ import com.qualcomm.robotcore.hardware.GyroSensor;
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.Position;
+import org.openftc.revextensions2.ExpansionHubEx;
 
 class MecanumDrive {
     DcMotorEx fL,bL,fR,bR;
-    private GyroSensor heading;
+    private BNO055IMU heading;
     private final static double DRIVE_MULT = 0;
     double track_width,wheel_base;
     Position position;
     private MatchTimer time;
     double wheel_diameter = 0.1;
-    Odometry odo;
 
-    MecanumDrive(DcMotorEx fr, DcMotorEx fl, DcMotorEx br, DcMotorEx bl, GyroSensor heading, MatchTimer time) {
+
+    MecanumDrive(DcMotorEx fr, DcMotorEx fl, DcMotorEx br, DcMotorEx bl, BNO055IMU heading, MatchTimer time) {
         fL = fl;
         bL = bl;
         fR = fr;
@@ -53,8 +55,8 @@ class MecanumDrive {
         bL.setPower(speed[3]);
     }
 
-    void init_position(double x,double y){
-       position = new Position(DistanceUnit.METER,x,y,0,time.getTime());
+    void initPosition(double x,double y){
+       position = new Position(DistanceUnit.METER,x,y,0,time.getMatchTime());
     };
 
     double[] getSpeed() {

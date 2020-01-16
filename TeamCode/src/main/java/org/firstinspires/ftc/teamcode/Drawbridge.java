@@ -6,7 +6,7 @@ import com.qualcomm.robotcore.hardware.Servo;
 /**
  * A class based on the crappy use of the SRS Programmer by yours truly.
  */
-public class Drawbridge {
+class Drawbridge {
 
     private final double leftUp = 1; //left and right are viewed from behind the robot
     private final double rightUp = 1;
