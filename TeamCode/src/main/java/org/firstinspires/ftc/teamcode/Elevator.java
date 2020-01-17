@@ -9,7 +9,7 @@ import com.qualcomm.robotcore.hardware.PIDFCoefficients;
 
 
 
-public class Elevator {
+class Elevator {
     private DcMotorEx left,right; //when viewed from back
     private double spoolDiameter;
     private PIDFCoefficients coeffs;
@@ -22,7 +22,7 @@ public class Elevator {
 
 
 
-    Elevator(DcMotor left, DcMotor right, double spoolDiameter, double ticksPerRev, double maxExtension, boolean isLeftReversed, boolean isRightReversed, int tolerance){
+    Elevator(DcMotor left, DcMotor right, PIDFCoefficients coeffs, double spoolDiameter, double ticksPerRev, double maxExtension, boolean isLeftReversed, boolean isRightReversed, int tolerance){
         this.left = (DcMotorEx) left;
         this.right = (DcMotorEx) right;
         this.spoolDiameter = spoolDiameter;
@@ -31,6 +31,7 @@ public class Elevator {
         this.isRightReversed = isRightReversed;
         this.maxExtension = maxExtension;
         this.tolerance = tolerance;
+        this.coeffs = coeffs;
         motorInits();
 
     }
@@ -74,7 +75,11 @@ public class Elevator {
     void update() {
         currentPosL = ticksToInches(left.getCurrentPosition(), isLeftReversed);
         currentPosR = ticksToInches(right.getCurrentPosition(), isRightReversed);
-        if ((currentPosL >= maxExtension - 0.25 || currentPosR >= maxExtension - 0.25) && (desiredVelocity > 0)) {
+        if (Math.abs(currentPosL-currentPosR) > 5) {
+            disableLift();
+        } else if ((currentPosL >= maxExtension - 0.25 || currentPosR >= maxExtension - 0.25) && (desiredVelocity > 0)) {
+            setVelocity(0);
+        } else if ((currentPosL <= 0.25 || currentPosR <= 0.25) && desiredVelocity < 0) {
             setVelocity(0);
         }
 
@@ -88,6 +93,7 @@ public class Elevator {
     }
 
     void disableLift() {
+        setVelocity(0);
         left.setMotorDisable();
         right.setMotorDisable();
     }
@@ -102,5 +108,16 @@ public class Elevator {
         positions.put("right_velocity",right.getVelocity());
         positions.put("desired_velocity",desiredVelocity);
         dashboard.sendTelemetryPacket(positions);
+    }
+
+    double getCurrentPos() {
+        return currentPosL;
+    }
+
+    void stop(){
+        setVelocity(0);
+    }
+    void goToBottom(){
+        runToPosition(0);
     }
 }
