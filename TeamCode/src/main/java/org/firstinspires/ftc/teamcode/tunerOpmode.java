@@ -2,10 +2,12 @@ package org.firstinspires.ftc.teamcode;
 
 import com.acmerobotics.dashboard.config.Config;
 import com.qualcomm.hardware.rev.RevBlinkinLedDriver;
+import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.PIDFCoefficients;
 
+@Autonomous(name="tunerOpmode")
 @Config
 public class tunerOpmode extends LinearOpMode {
     private Elevator elevator;
@@ -26,14 +28,16 @@ public class tunerOpmode extends LinearOpMode {
         blinkin.setPattern(RevBlinkinLedDriver.BlinkinPattern.STROBE_GOLD);
         pidf = new PIDFCoefficients(p,i,d,f);
         elevator = new Elevator(left,right,pidf,spoolDiameter,ticksPerRev,maxExtension,isLeftReversed,isRightReversed,tolerance);
-        elevator.setVelocity(1);
+        elevator.setVelocity(0.75);
         while (elevator.getCurrentPos() <= 0.75*maxExtension) {
             elevator.update();
+            elevator.sendTelemetry();
         }
         elevator.stop();
-        elevator.setVelocity(-1);
+        elevator.setVelocity(-0.75);
         while (elevator.getCurrentPos() >= 0.15) {
             elevator.update();
+            elevator.sendTelemetry();
         }
         elevator.stop();
     }

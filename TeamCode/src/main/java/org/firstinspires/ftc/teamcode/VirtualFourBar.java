@@ -11,6 +11,7 @@ class VirtualFourBar {
     VirtualFourBar(CRServo left, CRServo right, Servo gripper, boolean leftReversed, boolean rightReversed){
         this.left = left;
         this.right = right;
+        this.gripper = gripper;
         this.left.setDirection(leftReversed ? DcMotorSimple.Direction.REVERSE : DcMotorSimple.Direction.FORWARD);
         this.right.setDirection(rightReversed ? DcMotorSimple.Direction.REVERSE : DcMotorSimple.Direction.FORWARD);
     }
