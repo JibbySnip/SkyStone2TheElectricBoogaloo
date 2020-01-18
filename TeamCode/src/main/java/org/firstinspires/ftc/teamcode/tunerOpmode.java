@@ -16,7 +16,7 @@ public class tunerOpmode extends LinearOpMode {
     public static double p,i,d,f;
     private PIDFCoefficients pidf;
     private double spoolDiameter = 1.3;
-    private double ticksPerRev = 145.6;
+    private double ticksPerRev = 537.6;
     private double maxExtension = 27;
     private boolean isLeftReversed = false;
     private boolean isRightReversed = false;
