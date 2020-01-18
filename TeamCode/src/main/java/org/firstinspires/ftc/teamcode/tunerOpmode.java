@@ -18,8 +18,8 @@ public class tunerOpmode extends LinearOpMode {
     private double spoolDiameter = 1.3;
     private double ticksPerRev = 145.6;
     private double maxExtension = 27;
-    private boolean isLeftReversed = true;
-    private boolean isRightReversed = true;
+    private boolean isLeftReversed = false;
+    private boolean isRightReversed = false;
     private int tolerance = 10;
     private RevBlinkinLedDriver blinkin;
 
