@@ -8,7 +8,7 @@ import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.PIDFCoefficients;
 
 
-
+@Deprecated
 class Elevator {
 
     private DcMotorEx left,right; //when viewed from back
